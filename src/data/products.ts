@@ -119,6 +119,25 @@ export const products: Product[] = [
     fit: "Regular — confortável e versátil",
     occasions: ["Casual", "Esporte", "Dia a dia"],
   },
+  {
+    id: "m8",
+    name: "Calça Jogger Masculina",
+    category: "Calças",
+    gender: "masculino",
+    price: 76.90,
+    description: "Calça jogger com elástico nos punhos e cintura, visual urbano e confortável para o dia a dia.",
+    images: [
+      "/products/calca-jogger-marrom-1.jpeg",
+      "/products/calca-jogger-marrom-2.png",
+      "/products/calca-jogger-preto-1.jpeg",
+    ],
+    badge: "novo",
+    isNew: true,
+    sizes: ["P", "M", "G", "GG"],
+    colors: ["Marrom", "Preto"],
+    fit: "Jogger — ajuste com elástico nos punhos",
+    occasions: ["Casual", "Streetwear", "Dia a dia"],
+  },
   // FEMININO
   {
     id: "f0",
