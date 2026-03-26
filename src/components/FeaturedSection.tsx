@@ -1,0 +1,74 @@
+import { products } from "@/data/products";
+import ProductCard from "@/components/ProductCard";
+import { Product } from "@/types/product";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+
+interface FeaturedSectionProps {
+  onViewDetails: (product: Product) => void;
+}
+
+const FeaturedSection = ({ onViewDetails }: FeaturedSectionProps) => {
+  const isMobile = useIsMobile();
+  const newProducts = products.filter((p) => p.isNew).slice(0, 4);
+  const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 4);
+  const featured = products.filter((p) => p.isFeatured).slice(0, 4);
+
+  const sections = [
+    { title: "Novidades", subtitle: "Acabaram de chegar", items: newProducts },
+    { title: "Mais Pedidos", subtitle: "Favoritos dos clientes", items: bestSellers },
+    { title: "Destaques", subtitle: "Seleção curada", items: featured },
+  ];
+
+  return (
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        {sections.map((section) => (
+          <div key={section.title} className="mb-20 last:mb-0">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-primary">{section.title}</h2>
+                <p className="text-sm text-muted-foreground mt-1">{section.subtitle}</p>
+              </div>
+              <Link to="/catalogo">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider">
+                  Ver tudo <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                </Button>
+              </Link>
+            </div>
+
+            {isMobile ? (
+              <Carousel
+                opts={{ align: "start", loop: false, skipSnaps: false }}
+                className="-mx-4"
+              >
+                <CarouselContent className="-ml-3 px-4">
+                  {section.items.map((product) => (
+                    <CarouselItem key={product.id} className="pl-3 basis-[78%]">
+                      <ProductCard product={product} onViewDetails={onViewDetails} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {section.items.map((product) => (
+                  <ProductCard key={product.id} product={product} onViewDetails={onViewDetails} />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default FeaturedSection;

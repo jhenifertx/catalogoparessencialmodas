@@ -1,0 +1,189 @@
+import { Button } from "@/components/ui/button";
+import { X, ShoppingBag, MessageCircle, Minus, Plus } from "lucide-react";
+import { Product } from "@/types/product";
+import { useCart } from "@/contexts/CartContext";
+import { formatPrice, buildSingleProductMessage, openWhatsApp } from "@/lib/whatsapp";
+import { useState, useRef, useCallback } from "react";
+
+interface ProductDetailProps {
+  product: Product;
+  onClose: () => void;
+}
+
+const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
+  const { addItem } = useCart();
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(product.sizes?.[0]);
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0]);
+  const [quantity, setQuantity] = useState(1);
+  const [currentImage, setCurrentImage] = useState(0);
+
+  // Swipe support
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleSwipe = useCallback(() => {
+    const diff = touchStartX.current - touchEndX.current;
+    const threshold = 50;
+    if (Math.abs(diff) < threshold) return;
+    if (diff > 0 && currentImage < product.images.length - 1) {
+      setCurrentImage(currentImage + 1);
+    } else if (diff < 0 && currentImage > 0) {
+      setCurrentImage(currentImage - 1);
+    }
+  }, [currentImage, product.images.length]);
+
+  const handleAdd = () => {
+    for (let i = 0; i < quantity; i++) {
+      addItem(product, selectedSize, selectedColor);
+    }
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+      <div
+        className="relative bg-card border border-border rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-fade-up"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 right-4 z-10 text-muted-foreground hover:text-primary"
+          onClick={onClose}
+        >
+          <X className="h-5 w-5" />
+        </Button>
+
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          {/* Images with swipe */}
+          <div
+            className="aspect-[3/4] relative overflow-hidden touch-pan-y"
+            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => { touchEndX.current = e.changedTouches[0].clientX; handleSwipe(); }}
+            onMouseDown={(e) => { touchStartX.current = e.clientX; }}
+            onMouseUp={(e) => { touchEndX.current = e.clientX; handleSwipe(); }}
+          >
+            <img
+              src={product.images[currentImage]}
+              alt={product.name}
+              className="w-full h-full object-cover rounded-t-lg md:rounded-l-lg md:rounded-tr-none transition-opacity duration-300"
+              draggable={false}
+            />
+            {product.badge && (
+              <span className="absolute top-4 left-4 px-3 py-1 text-[10px] font-semibold tracking-wider uppercase bg-primary text-primary-foreground rounded-sm">
+                {product.badge === "novo" ? "Novo" : product.badge === "destaque" ? "Destaque" : product.badge === "mais-pedido" ? "Mais Pedido" : "Últimas Peças"}
+              </span>
+            )}
+            {product.images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {product.images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentImage(i)}
+                    className={`w-2.5 h-2.5 rounded-full transition-colors ${i === currentImage ? "bg-primary scale-110" : "bg-muted-foreground/50"}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Info */}
+          <div className="p-6 md:p-8 flex flex-col">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{product.category} · {product.gender === "masculino" ? "Masculino" : "Feminino"}</p>
+            <h2 className="text-2xl font-bold text-primary mb-2">{product.name}</h2>
+            <p className="text-2xl font-bold text-foreground mb-4">{formatPrice(product.price)}</p>
+            <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{product.description}</p>
+
+            {product.fit && (
+              <p className="text-xs text-muted-foreground mb-4">
+                <span className="text-foreground font-medium">Caimento:</span> {product.fit}
+              </p>
+            )}
+
+            {product.occasions && (
+              <p className="text-xs text-muted-foreground mb-6">
+                <span className="text-foreground font-medium">Ocasiões:</span> {product.occasions.join(", ")}
+              </p>
+            )}
+
+            {/* Sizes */}
+            {product.sizes && (
+              <div className="mb-4">
+                <p className="text-xs font-medium text-foreground mb-2 uppercase tracking-wider">Tamanho</p>
+                <div className="flex flex-wrap gap-2">
+                  {product.sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`px-3 py-1.5 text-xs border rounded transition-colors ${
+                        selectedSize === size
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border text-muted-foreground hover:border-primary/50"
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Colors */}
+            {product.colors && (
+              <div className="mb-6">
+                <p className="text-xs font-medium text-foreground mb-2 uppercase tracking-wider">Cor</p>
+                <div className="flex flex-wrap gap-2">
+                  {product.colors.map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedColor(color)}
+                      className={`px-3 py-1.5 text-xs border rounded transition-colors ${
+                        selectedColor === color
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border text-muted-foreground hover:border-primary/50"
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quantity */}
+            <div className="mb-6">
+              <p className="text-xs font-medium text-foreground mb-2 uppercase tracking-wider">Quantidade</p>
+              <div className="flex items-center gap-3">
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-8 h-8 border border-border rounded flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors">
+                  <Minus className="h-3 w-3" />
+                </button>
+                <span className="text-sm font-medium text-foreground w-8 text-center">{quantity}</span>
+                <button onClick={() => setQuantity(quantity + 1)} className="w-8 h-8 border border-border rounded flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors">
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-auto flex flex-col gap-3">
+              <Button className="w-full bg-primary text-primary-foreground" onClick={handleAdd}>
+                <ShoppingBag className="h-4 w-4 mr-2" />
+                Adicionar ao Carrinho
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full border-border"
+                onClick={() => openWhatsApp(buildSingleProductMessage(product))}
+              >
+                <MessageCircle className="h-4 w-4 mr-2" />
+                Comprar no WhatsApp
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductDetail;
