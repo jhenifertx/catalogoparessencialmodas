@@ -237,7 +237,7 @@ export const products: Product[] = [
     category: "Croppeds",
     gender: "feminino",
     price: 29.90,
-    description: "Cropped com bandeira do Brasil, tecido canelado confortável e estiloso. Perfeito para o dia a dia.",
+    description: "Cropped com bandeira do Brasil em tecido ribana confortável e estiloso. Perfeito para o dia a dia.",
     images: [
       "/products/cropped-brasil-amarelo.png",
       "/products/cropped-brasil-branco.png",
