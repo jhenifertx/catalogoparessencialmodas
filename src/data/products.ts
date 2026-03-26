@@ -154,7 +154,7 @@ export const products: Product[] = [
     ],
     badge: "novo",
     isNew: true,
-    sizes: ["Único (34-42)"],
+    sizes: ["Único (36-42)"],
     colors: ["Marrom", "Preto"],
     fit: "Ajustado — valoriza a silhueta",
     occasions: ["Casual", "Encontros", "Casual Chic"],
