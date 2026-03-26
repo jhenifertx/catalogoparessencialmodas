@@ -272,17 +272,6 @@ export const products: Product[] = [
     fit: "Ajustado — com bojo embutido",
     occasions: ["Balada", "Encontros", "Casual Chic"],
   },
-    category: "Shorts",
-    gender: "feminino",
-    price: 74.90,
-    description: "Shorts com caimento perfeito e tecido premium. Essencial para o verão.",
-    images: ["/lovable-uploads/403ad92f-0d8f-498b-8be3-560a6898265b.png"],
-    badge: "ultimas-pecas",
-    sizes: ["P", "M", "G"],
-    colors: ["Preto", "Branco"],
-    fit: "Slim — ajustado e moderno",
-    occasions: ["Casual", "Praia", "Dia a dia"],
-  },
 ];
 
 export const maleCategories = [
