@@ -359,6 +359,7 @@ export const femaleCategories = [
   "Vestidos",
   "Conjuntos",
   "Croppeds",
+  "Oversized",
   "Short saia",
   "Shorts",
 ];
