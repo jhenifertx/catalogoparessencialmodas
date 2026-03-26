@@ -169,7 +169,7 @@ export const products: Product[] = [
     images: ["/lovable-uploads/403ad92f-0d8f-498b-8be3-560a6898265b.png"],
     badge: "destaque",
     isFeatured: true,
-    sizes: ["P", "M", "G"],
+    sizes: ["Único (36-42)"],
     colors: ["Preto", "Branco"],
     fit: "Ajustado — valoriza a silhueta",
     occasions: ["Eventos", "Encontros", "Casual Chic"],
