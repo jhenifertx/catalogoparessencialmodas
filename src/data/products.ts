@@ -57,7 +57,7 @@ export const products: Product[] = [
     name: "Camiseta Modelo Armani",
     category: "Camisetas modelo Armani",
     gender: "masculino",
-    price: 139.90,
+    price: 69.90,
     description: "Acabamento premium em algodão com detalhes refinados. Visual elegante para quem busca presença.",
     images: [
       "/products/camiseta-armani-1.jpeg",
