@@ -1,73 +1,40 @@
-# Welcome to your Lovable project
+# Par Essencial - Catálogo Digital
 
-## Project info
+Catálogo digital premium para a **Par Essencial**, focado em moda urbana, oversized e cargo pants.
 
-**URL**: https://lovable.dev/projects/892ce131-324b-4d72-aa64-18191fbd1e42
+## Tecnologias Utilizadas
 
-## How can I edit this code?
+- **React** + **Vite**
+- **TypeScript**
+- **Tailwind CSS**
+- **Shadcn UI**
+- **Lucide React** (Ícones)
+- **Framer Motion** (Animações)
 
-There are several ways of editing your application.
+## Como Iniciar o Projeto
 
-**Use Lovable**
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/892ce131-324b-4d72-aa64-18191fbd1e42) and start prompting.
+2. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+3. Para gerar a build de produção:
+   ```bash
+   npm run build
+   ```
 
-**Use your preferred IDE**
+## Estrutura do Projeto
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- `src/components`: Componentes reutilizáveis da interface.
+- `src/data`: Dados dos produtos e configurações do WhatsApp.
+- `src/pages`: Páginas principais do catálogo.
+- `public/uploads`: Imagens e logos dos produtos.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Integração
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/892ce131-324b-4d72-aa64-18191fbd1e42) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+O projeto está configurado para enviar pedidos diretamente para o WhatsApp da loja, facilitando o atendimento e a conversão.

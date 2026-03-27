@@ -11,7 +11,7 @@ const ProductShowcase = () => {
       id: 1,
       title: "Oversized Tees",
       description: "Camisetas oversized com design exclusivo",
-      image: "/lovable-uploads/7ea963c6-7617-4cb3-b9dd-f0b265fee6a5.png",
+      image: "/uploads/7ea963c6-7617-4cb3-b9dd-f0b265fee6a5.png",
       price: "R$ 89,90",
       originalPrice: "R$ 119,90",
       badge: "Best Seller"
@@ -20,7 +20,7 @@ const ProductShowcase = () => {
       id: 2,
       title: "Premium Hoodies", 
       description: "Moletons premium com estampa única",
-      image: "/lovable-uploads/403ad92f-0d8f-498b-8be3-560a6898265b.png",
+      image: "/uploads/403ad92f-0d8f-498b-8be3-560a6898265b.png",
       price: "R$ 149,90",
       originalPrice: "R$ 199,90",
       badge: "New Drop"

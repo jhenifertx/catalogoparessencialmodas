@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="flex items-center space-x-3">
             <img
-              src="/lovable-uploads/6c2cfb1b-7b44-4e32-9918-95d41f73f2be.png"
+              src="/uploads/6c2cfb1b-7b44-4e32-9918-95d41f73f2be.png"
               alt="Par Essencial Logo"
               className="h-7 w-auto"
             />

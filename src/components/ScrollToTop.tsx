@@ -16,7 +16,7 @@ const ScrollToTop = () => {
     <button
       onClick={scrollUp}
       aria-label="Voltar ao topo"
-      className={`fixed bottom-24 md:bottom-8 right-4 md:right-6 z-40 w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border text-muted-foreground hover:text-primary hover:border-primary/40 shadow-lg transition-all duration-300 flex items-center justify-center ${
+      className={`fixed bottom-24 md:bottom-24 right-4 md:right-6 z-40 w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border text-muted-foreground hover:text-primary hover:border-primary/40 shadow-lg transition-all duration-300 flex items-center justify-center ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >
