@@ -68,8 +68,19 @@ const FeaturedSection = ({ onViewDetails }: FeaturedSectionProps) => {
   const newProducts = products.filter((p) => p.isNew).slice(0, 4);
   const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 4);
   const featured = products.filter((p) => p.isFeatured).slice(0, 4);
-  const masculino = products.filter((p) => p.gender === "masculino").slice(0, 4);
-  const feminino = products.filter((p) => p.gender === "feminino").slice(0, 4);
+
+  const shownIds = new Set([
+    ...newProducts,
+    ...bestSellers,
+    ...featured,
+  ].map((p) => p.id));
+
+  const masculino = products
+    .filter((p) => p.gender === "masculino" && !shownIds.has(p.id))
+    .slice(0, 4);
+  const feminino = products
+    .filter((p) => p.gender === "feminino" && !shownIds.has(p.id))
+    .slice(0, 4);
 
   const sections = [
     { title: "Novidades", subtitle: "Acabaram de chegar", items: newProducts, link: "/catalogo?filtro=novidades" },
