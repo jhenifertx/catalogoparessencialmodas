@@ -115,16 +115,17 @@ export const products: Product[] = [
     description: "Camiseta com textura premium (pontos e lateral), visual moderno e sofisticado para looks streetwear refinados.",
     images: [
       "/uploads/zara-texturizada-off.png",
-      "/uploads/zara-texturizada-marrom-1.png",
-      "/uploads/zara-texturizada-marrom-2.png",
+      "/uploads/zara-texturizada-marrom-dark.jpg",
+      "/uploads/zara-texturizada-marrom-claro.png",
     ],
     isFeatured: true,
     sizes: ["P", "M", "G", "GG"],
     colors: ["Creme", "Preta", "Marrom", "Marrom Claro"],
     colorImages: {
       "Creme": "/uploads/zara-texturizada-off.png",
-      "Marrom": "/uploads/zara-texturizada-marrom-1.png",
-      "Marrom Claro": "/uploads/zara-texturizada-marrom-2.png",
+      "Preta": "/uploads/zara-texturizada-preta.jpg",
+      "Marrom": "/uploads/zara-texturizada-marrom-dark.jpg",
+      "Marrom Claro": "/uploads/zara-texturizada-marrom-claro.png",
     },
     colorSizes: {
       "Creme": ["M", "G", "GG"],
@@ -445,6 +446,25 @@ export const products: Product[] = [
     colors: ["Azul Marinho", "Branco", "Off White", "Vinho", "Vermelho"],
     fit: "Ajustado — com tule transparente",
     occasions: ["Balada", "Eventos", "Encontros"],
+  },
+  {
+    id: "f14",
+    name: "Vestido Suplex com Fenda",
+    category: "Vestidos",
+    gender: "feminino",
+    price: 109.90,
+    description: "Vestido longo em Suplex com fenda lateral, decote de um ombro só e gola alta. Confortável e elegante para diversas ocasiões.",
+    images: [
+      "/uploads/vestido-fenda-2.png",
+      "/uploads/vestido-fenda-1.png",
+      "/uploads/vestido-fenda-3.png",
+    ],
+    badge: "novo",
+    isNew: true,
+    sizes: ["Único"],
+    colors: ["Branco"],
+    fit: "Ajustado — tecido Suplex com elasticidade",
+    occasions: ["Social", "Festas", "Eventos Noturnos"],
   },
 ];
 
