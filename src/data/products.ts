@@ -310,8 +310,8 @@ export const products: Product[] = [
     name: "Vestido Curto",
     category: "Vestidos",
     gender: "feminino",
-    price: 89.90,
-    description: "Vestido curto ajustado em poliamida com detalhe no pescoço. Elegante e sofisticado.",
+    price: 79.90,
+    description: "Vestido curto ajustado em tecido poliamida com detalhe no pescoço. Elegante e sofisticado.",
     images: [
       "/products/vestido-curto-marrom-1.png",
       "/products/vestido-curto-preto-1.png",
