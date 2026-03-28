@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { X, ShoppingBag, MessageCircle, Minus, Plus } from "lucide-react";
+import { X, ShoppingBag, MessageCircle, Minus, Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "@/types/product";
 import { useCart } from "@/contexts/CartContext";
 import { formatPrice, buildSingleProductMessage, openWhatsApp } from "@/lib/whatsapp";
@@ -98,15 +98,36 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
               </span>
             )}
             {product.images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                {product.images.map((_, i) => (
+              <>
+                {/* Prev arrow */}
+                {currentImage > 0 && (
                   <button
-                    key={i}
-                    onClick={() => setCurrentImage(i)}
-                    className={`w-2.5 h-2.5 rounded-full transition-colors ${i === currentImage ? "bg-primary scale-110" : "bg-muted-foreground/50"}`}
-                  />
-                ))}
-              </div>
+                    onClick={() => setCurrentImage(currentImage - 1)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/70 hover:bg-background/90 backdrop-blur-sm rounded-full p-1.5 transition-all"
+                  >
+                    <ChevronLeft className="h-4 w-4 text-foreground" />
+                  </button>
+                )}
+                {/* Next arrow */}
+                {currentImage < product.images.length - 1 && (
+                  <button
+                    onClick={() => setCurrentImage(currentImage + 1)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/70 hover:bg-background/90 backdrop-blur-sm rounded-full p-1.5 transition-all"
+                  >
+                    <ChevronRight className="h-4 w-4 text-foreground" />
+                  </button>
+                )}
+                {/* Dots */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {product.images.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentImage(i)}
+                      className={`w-2.5 h-2.5 rounded-full transition-colors ${i === currentImage ? "bg-primary scale-110" : "bg-muted-foreground/50"}`}
+                    />
+                  ))}
+                </div>
+              </>
             )}
           </div>
 

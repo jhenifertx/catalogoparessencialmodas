@@ -294,7 +294,6 @@ export const products: Product[] = [
     price: 75.90,
     description: "Camiseta oversized Nike SB em tecido suedine. Estampa exclusiva nas costas com visual streetwear.",
     images: [
-      "/products/oversized-nike-1.png",
       "/products/oversized-nike-2.png",
       "/products/oversized-nike-3.png",
       "/products/oversized-nike-4.png",
