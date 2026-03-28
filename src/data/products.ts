@@ -74,15 +74,21 @@ export const products: Product[] = [
     description: "Camiseta Boss em algodão premium sem textura. Conforto e sofisticação para o seu dia a dia.",
     images: [
       "/uploads/boss-white.png",
+      "/uploads/boss-azul-claro.jpg",
+      "/uploads/boss-vermelha2.jpg",
+      "/uploads/boss-creme2.png",
       "/products/camiseta-boss-2.png",
       "/products/camiseta-boss-1.png",
     ],
     badge: "mais-pedido",
     isBestSeller: true,
     sizes: ["P", "M", "G", "GG"],
-    colors: ["Branca", "Preta", "Vermelha", "Azul", "Creme"],
+    colors: ["Branca", "Preta", "Vermelha", "Azul Claro", "Creme", "Azul"],
     colorImages: {
       "Branca": "/uploads/boss-white.png",
+      "Azul Claro": "/uploads/boss-azul-claro.jpg",
+      "Vermelha": "/uploads/boss-vermelha2.jpg",
+      "Creme": "/uploads/boss-creme2.png",
     },
     colorSizes: {
       "Vermelha": ["GG"],
