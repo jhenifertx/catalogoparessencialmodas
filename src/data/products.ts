@@ -244,7 +244,7 @@ export const products: Product[] = [
     ],
     badge: "novo",
     isNew: true,
-    sizes: ["P", "M", "G"],
+    sizes: ["Único (34-40)"],
     colors: ["Preto", "Marrom"],
     colorImages: {
       "Preto": "/products/cropped-faixa-preto-1.jpg",
