@@ -18,6 +18,7 @@ export interface Product {
   availableSizes?: string[];
   colors?: string[];
   colorImages?: Record<string, string>;
+  colorSizes?: Record<string, string[]>;
   sku?: string;
   fit?: string;
   occasions?: string[];

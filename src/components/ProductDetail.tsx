@@ -21,10 +21,20 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
+    
+    // Update image if color-image mapping exists
     if (product.colorImages && product.colorImages[color]) {
       const imageIndex = product.images.indexOf(product.colorImages[color]);
       if (imageIndex !== -1) {
         setCurrentImage(imageIndex);
+      }
+    }
+
+    // Update selected size if color-size mapping exists
+    if (product.colorSizes && product.colorSizes[color]) {
+      const availableSizesForColor = product.colorSizes[color];
+      if (selectedSize && !availableSizesForColor.includes(selectedSize)) {
+        setSelectedSize(availableSizesForColor[0]);
       }
     }
   };
@@ -125,7 +135,13 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
                 <p className="text-xs font-medium text-foreground mb-2 uppercase tracking-wider">Tamanho</p>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size) => {
-                    const isAvailable = !product.availableSizes || product.availableSizes.includes(size);
+                    let isAvailable = !product.availableSizes || product.availableSizes.includes(size);
+                    
+                    // If color-specific sizes exist, they override generic availableSizes
+                    if (product.colorSizes && selectedColor && product.colorSizes[selectedColor]) {
+                      isAvailable = product.colorSizes[selectedColor].includes(size);
+                    }
+
                     return (
                       <button
                         key={size}
