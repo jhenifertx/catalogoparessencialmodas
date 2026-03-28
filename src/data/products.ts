@@ -354,6 +354,7 @@ export const products: Product[] = [
     price: 119.90,
     description: "Conjunto de saia e cropped em tule transparente com forro. Visual ousado e sofisticado.",
     images: [
+      "/uploads/conjunto-tule-marinho.jpg",
       "/products/conjunto-tule-vinho-1.webp",
       "/products/conjunto-tule-vermelho-1.webp",
       "/products/conjunto-tule-branco-1.webp",
@@ -363,8 +364,9 @@ export const products: Product[] = [
     badge: "novo",
     isNew: true,
     sizes: ["Único (34-40)"],
-    colors: ["Azul Marinho", "Branco", "Off White", "Vinho", "Vermelho"],
+    colors: ["Azul Marinho", "Branco", "Off White", "Vinho", "Vermelho", "Preto"],
     colorImages: {
+      "Azul Marinho": "/uploads/conjunto-tule-marinho.jpg",
       "Vinho": "/products/conjunto-tule-vinho-1.webp",
       "Vermelho": "/products/conjunto-tule-vermelho-1.webp",
       "Branco": "/products/conjunto-tule-branco-1.webp",

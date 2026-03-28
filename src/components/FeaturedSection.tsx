@@ -9,6 +9,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
 
 interface FeaturedSectionProps {
@@ -31,43 +33,47 @@ const ProductRow = ({
   isMobile: boolean;
 }) => (
   <div className="mb-20 last:mb-0">
-    <div className="flex items-end justify-between mb-8">
-      <div>
-        <h2 className="text-3xl md:text-4xl font-bold text-primary">{title}</h2>
-        <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
+    <Carousel 
+      opts={{ align: "start", loop: false }} 
+      className="w-full"
+    >
+      <div className="flex items-end justify-between mb-8">
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-primary">{title}</h2>
+          <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link to={linkTo}>
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider">
+              Ver tudo <ArrowRight className="h-3.5 w-3.5 ml-1" />
+            </Button>
+          </Link>
+          <div className="hidden md:flex gap-1.5 ml-2">
+            <CarouselPrevious className="static translate-y-0 h-8 w-8 border-primary/20 hover:bg-primary hover:text-primary-foreground" />
+            <CarouselNext className="static translate-y-0 h-8 w-8 border-primary/20 hover:bg-primary hover:text-primary-foreground" />
+          </div>
+        </div>
       </div>
-      <Link to={linkTo}>
-        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider">
-          Ver tudo <ArrowRight className="h-3.5 w-3.5 ml-1" />
-        </Button>
-      </Link>
-    </div>
 
-    {isMobile ? (
-      <Carousel opts={{ align: "start", loop: false, skipSnaps: false }} className="-mx-4">
-        <CarouselContent className="-ml-3 px-4">
-          {items.map((product) => (
-            <CarouselItem key={product.id} className="pl-3 basis-[78%]">
-              <ProductCard product={product} onViewDetails={onViewDetails} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    ) : (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <CarouselContent className="-ml-4">
         {items.map((product) => (
-          <ProductCard key={product.id} product={product} onViewDetails={onViewDetails} />
+          <CarouselItem 
+            key={product.id} 
+            className="pl-4 basis-[85%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+          >
+            <ProductCard product={product} onViewDetails={onViewDetails} />
+          </CarouselItem>
         ))}
-      </div>
-    )}
+      </CarouselContent>
+    </Carousel>
   </div>
 );
 
 const FeaturedSection = ({ onViewDetails }: FeaturedSectionProps) => {
   const isMobile = useIsMobile();
-  const newProducts = products.filter((p) => p.isNew).slice(0, 4);
-  const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 4);
-  const featured = products.filter((p) => p.isFeatured).slice(0, 4);
+  const newProducts = products.filter((p) => p.isNew).slice(0, 8);
+  const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 8);
+  const featured = products.filter((p) => p.isFeatured).slice(0, 8);
 
   const shownIds = new Set([
     ...newProducts,
@@ -77,10 +83,10 @@ const FeaturedSection = ({ onViewDetails }: FeaturedSectionProps) => {
 
   const masculino = products
     .filter((p) => p.gender === "masculino" && !shownIds.has(p.id))
-    .slice(0, 4);
+    .slice(0, 8);
   const feminino = products
     .filter((p) => p.gender === "feminino" && !shownIds.has(p.id))
-    .slice(0, 4);
+    .slice(0, 8);
 
   const sections = [
     { title: "Novidades", subtitle: "Acabaram de chegar", items: newProducts, link: "/catalogo?filtro=novidades" },
