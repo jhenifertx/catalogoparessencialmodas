@@ -12,10 +12,22 @@ interface ProductDetailProps {
 
 const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
   const { addItem } = useCart();
-  const [selectedSize, setSelectedSize] = useState<string | undefined>(product.sizes?.[0]);
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(
+    product.availableSizes ? product.availableSizes[0] : product.sizes?.[0]
+  );
   const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0]);
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(0);
+
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+    if (product.colorImages && product.colorImages[color]) {
+      const imageIndex = product.images.indexOf(product.colorImages[color]);
+      if (imageIndex !== -1) {
+        setCurrentImage(imageIndex);
+      }
+    }
+  };
 
   // Swipe support
   const touchStartX = useRef(0);
@@ -112,19 +124,25 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
               <div className="mb-4">
                 <p className="text-xs font-medium text-foreground mb-2 uppercase tracking-wider">Tamanho</p>
                 <div className="flex flex-wrap gap-2">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-3 py-1.5 text-xs border rounded transition-colors ${
-                        selectedSize === size
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border text-muted-foreground hover:border-primary/50"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+                  {product.sizes.map((size) => {
+                    const isAvailable = !product.availableSizes || product.availableSizes.includes(size);
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => isAvailable && setSelectedSize(size)}
+                        disabled={!isAvailable}
+                        className={`px-3 py-1.5 text-xs border rounded transition-colors ${
+                          selectedSize === size
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : isAvailable
+                            ? "border-border text-muted-foreground hover:border-primary/50"
+                            : "border-border/50 text-muted-foreground/30 cursor-not-allowed opacity-50"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -137,7 +155,7 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
                   {product.colors.map((color) => (
                     <button
                       key={color}
-                      onClick={() => setSelectedColor(color)}
+                      onClick={() => handleColorChange(color)}
                       className={`px-3 py-1.5 text-xs border rounded transition-colors ${
                         selectedColor === color
                           ? "border-primary bg-primary text-primary-foreground"
@@ -173,7 +191,7 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
               <Button
                 variant="outline"
                 className="w-full border-border"
-                onClick={() => openWhatsApp(buildSingleProductMessage(product))}
+                onClick={() => openWhatsApp(buildSingleProductMessage(product, selectedSize, selectedColor))}
               >
                 <MessageCircle className="h-4 w-4 mr-2" />
                 Comprar no WhatsApp

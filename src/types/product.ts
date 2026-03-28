@@ -15,7 +15,9 @@ export interface Product {
   isFeatured?: boolean;
   isBestSeller?: boolean;
   sizes?: string[];
+  availableSizes?: string[];
   colors?: string[];
+  colorImages?: Record<string, string>;
   sku?: string;
   fit?: string;
   occasions?: string[];

@@ -5,12 +5,16 @@ export function formatPrice(value: number): string {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-export function buildSingleProductMessage(product: Product): string {
-  const msg = `Olá! Tenho interesse nesta peça da Par Essencial:
+export function buildSingleProductMessage(product: Product, size?: string, color?: string): string {
+  let msg = `Olá! Tenho interesse nesta peça da Par Essencial:
 
 Produto: ${product.name}
-Categoria: ${product.category}
-Preço: ${formatPrice(product.price)}
+Categoria: ${product.category}`;
+
+  if (size) msg += `\nTamanho: ${size}`;
+  if (color) msg += `\nCor: ${color}`;
+
+  msg += `\nPreço: ${formatPrice(product.price)}
 
 Pode me passar mais informações?`;
   return msg;
