@@ -25,13 +25,16 @@ export const products: Product[] = [
     price: 64.90,
     description: "Camiseta básica premium sem textura, com corte moderno e toque macio. Essencial para composições casuais e elegantes.",
     images: [
-      "/products/camiseta-zara-4.png",
+      "/uploads/zara-texturizada-off.png",
       "/products/camiseta-zara-1.jpeg",
     ],
     badge: "destaque",
     isFeatured: true,
     sizes: ["P", "M", "G", "GG"],
     colors: ["Off White", "Preto"],
+    colorImages: {
+      "Off White": "/uploads/zara-texturizada-off.png",
+    },
     colorSizes: {
       "Off White": ["GG"],
       "Preto": ["GG"],
@@ -99,7 +102,8 @@ export const products: Product[] = [
     price: 74.90,
     description: "Camiseta com textura premium (pontos e lateral), visual moderno e sofisticado para looks streetwear refinados.",
     images: [
-      "/uploads/zara-texturizada-off.png",
+      "/uploads/zara-texturizada-creme.jpg",
+      "/uploads/zara-texturizada-preta2.jpg",
       "/uploads/zara-texturizada-marrom-dark.jpg",
       "/uploads/zara-texturizada-marrom-claro.png",
     ],
@@ -107,8 +111,8 @@ export const products: Product[] = [
     sizes: ["P", "M", "G", "GG"],
     colors: ["Creme", "Preta", "Marrom", "Marrom Claro"],
     colorImages: {
-      "Creme": "/uploads/zara-texturizada-off.png",
-      "Preta": "/uploads/zara-texturizada-preta.jpg",
+      "Creme": "/uploads/zara-texturizada-creme.jpg",
+      "Preta": "/uploads/zara-texturizada-preta2.jpg",
       "Marrom": "/uploads/zara-texturizada-marrom-dark.jpg",
       "Marrom Claro": "/uploads/zara-texturizada-marrom-claro.png",
     },
