@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/carousel";
 
 interface FeaturedSectionProps {
-  onViewDetails: (product: Product) => void;
+  onViewDetails: (product: Product, color?: string) => void;
 }
 
 const ProductRow = ({
@@ -29,9 +29,23 @@ const ProductRow = ({
   subtitle: string;
   items: Product[];
   linkTo: string;
-  onViewDetails: (p: Product) => void;
+  onViewDetails: (p: Product, color?: string) => void;
   isMobile: boolean;
-}) => (
+}) => {
+  // Expand items to include color variants if they have colorImages defined
+  const expandedItems = items.flatMap(product => {
+    if (product.colors && product.colors.length > 0 && product.colorImages) {
+      return product.colors.map(color => ({
+        ...product,
+        displayColor: color,
+        // Unique key for the variant
+        variantKey: `${product.id}-${color}`
+      }));
+    }
+    return [{ ...product, variantKey: product.id }];
+  });
+
+  return (
   <div className="mb-20 last:mb-0">
     <Carousel 
       opts={{ align: "start", loop: false }} 
@@ -54,20 +68,24 @@ const ProductRow = ({
           </div>
         </div>
       </div>
-
       <CarouselContent className="-ml-4">
-        {items.map((product) => (
+        {expandedItems.map((item) => (
           <CarouselItem 
-            key={product.id} 
+            key={item.variantKey} 
             className="pl-4 basis-[85%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
           >
-            <ProductCard product={product} onViewDetails={onViewDetails} />
+            <ProductCard 
+              product={item} 
+              onViewDetails={onViewDetails} 
+              displayColor={(item as any).displayColor}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>
-    </Carousel>
-  </div>
-);
+      </Carousel>
+    </div>
+  );
+};
 
 const FeaturedSection = ({ onViewDetails }: FeaturedSectionProps) => {
   const isMobile = useIsMobile();

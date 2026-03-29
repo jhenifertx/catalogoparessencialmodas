@@ -14,14 +14,16 @@ import ProductDetail from "@/components/ProductDetail";
 import { Product } from "@/types/product";
 
 const Index = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<{ product: Product; color?: string } | null>(null);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <main>
         <Hero />
-        <FeaturedSection onViewDetails={setSelectedProduct} />
+        <FeaturedSection 
+          onViewDetails={(product, color) => setSelectedProduct({ product, color })} 
+        />
         <HowItWorks />
         <VIPSection />
         <About />
@@ -32,7 +34,11 @@ const Index = () => {
       <MobileBottomNav />
       <ScrollToTop />
       {selectedProduct && (
-        <ProductDetail product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        <ProductDetail 
+          product={selectedProduct.product} 
+          initialColor={selectedProduct.color}
+          onClose={() => setSelectedProduct(null)} 
+        />
       )}
     </div>
   );

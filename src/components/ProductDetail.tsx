@@ -8,16 +8,29 @@ import { useState, useRef, useCallback } from "react";
 interface ProductDetailProps {
   product: Product;
   onClose: () => void;
+  initialColor?: string;
 }
 
-const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
+const ProductDetail = ({ product, onClose, initialColor }: ProductDetailProps) => {
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState<string | undefined>(
     product.availableSizes ? product.availableSizes[0] : product.sizes?.[0]
   );
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0]);
+  
+  // Use initialColor if provided, otherwise fallback to first color
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(initialColor || product.colors?.[0]);
   const [quantity, setQuantity] = useState(1);
-  const [currentImage, setCurrentImage] = useState(0);
+  
+  // Set initial image based on selected color
+  const getInitialImageIndex = () => {
+    if (initialColor && product.colorImages && product.colorImages[initialColor]) {
+      const idx = product.images.indexOf(product.colorImages[initialColor]);
+      return idx !== -1 ? idx : 0;
+    }
+    return 0;
+  };
+  
+  const [currentImage, setCurrentImage] = useState(getInitialImageIndex());
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
